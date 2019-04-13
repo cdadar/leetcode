@@ -3,23 +3,18 @@ package reverse;
 class Solution {
 
   public int reverse(int x) {
-    boolean minus = false;
-    if (x < 0) {
-      minus = true;
+    int rev = 0;
+    while (x != 0) {
+      int pop = x % 10;
+      x /= 10;
+      if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) {
+        return 0;
+      }
+      if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) {
+        return 0;
+      }
+      rev = rev * 10 + pop;
     }
-    String num = minus ? String.valueOf(x).substring(1) : String.valueOf(x);
-    StringBuffer buffer = new StringBuffer();
-    for (int i = num.length() - 1; i >= 0; i--) {
-      buffer.append(num.charAt(i));
-    }
-    num = buffer.toString();
-    num = minus ? "-" + num : num;
-    int ret = 0;
-    try {
-      ret = Integer.valueOf(num);
-    } catch (NumberFormatException e) {
-
-    }
-    return ret;
+    return rev;
   }
 }
