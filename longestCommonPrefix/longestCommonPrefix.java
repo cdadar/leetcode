@@ -10,27 +10,30 @@ public class longestCommonPrefix {
     if (strs == null || strs.length == 0) {
       return "";
     }
-    return this.longestCommonPrefix(strs, 0, strs.length - 1);
-  }
-
-  private String longestCommonPrefix(String[] strs, int l, int r) {
-    if (l == r) {
-      return strs[l];
-    } else {
-      int mid = (l + r) / 2;
-      String lcpLeft = this.longestCommonPrefix(strs, l, mid);
-      String lcpRight = this.longestCommonPrefix(strs, mid + 1, r);
-      return this.commonPrefix(lcpLeft, lcpRight);
+    int minLen = Integer.MAX_VALUE;
+    for (String str : strs) {
+      minLen = Math.min(minLen, str.length());
     }
-  }
-
-  String commonPrefix(String left, String right) {
-    int min = Math.min(left.length(), right.length());
-    for (int i = 0; i < min; i++) {
-      if (left.charAt(i) != right.charAt(i)) {
-        return left.substring(0, i);
+    int low = 1;
+    int high = minLen;
+    while (low <= high) {
+      int middle = (low + high) / 2;
+      if (this.isCommonPrefix(strs, middle)) {
+        low = middle + 1;
+      } else {
+        high = middle - 1;
       }
     }
-    return left.substring(0, min);
+    return strs[0].substring(0, (low + high) / 2);
+  }
+
+  private boolean isCommonPrefix(String[] strs, int len) {
+    String str1 = strs[0].substring(0, len);
+    for (int i = 1; i < strs.length; i++) {
+      if (!strs[i].startsWith(str1)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
