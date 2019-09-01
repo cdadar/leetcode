@@ -18,11 +18,15 @@ class Solution {
         data.put('{', '}');
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
-            if (data.keySet().contains(s.charAt(i))) {
+            if (data.containsKey(s.charAt(i))) {
                 stack.push(s.charAt(i));
             } else {
                 int finalI = i;
-                Character temp = data.entrySet().stream().filter(entry -> entry.getValue().equals(s.charAt(finalI))).findFirst().map(entry -> entry.getKey()).orElse(null);
+                Character temp = data.entrySet().stream()
+                        .filter(entry -> entry.getValue().equals(s.charAt(finalI)))
+                        .findFirst().
+                                map(Map.Entry::getKey)
+                        .orElse(null);
                 if (stack.isEmpty() || !stack.pop().equals(temp)) {
                     return false;
                 }
