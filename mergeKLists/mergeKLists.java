@@ -1,4 +1,4 @@
-package mergeKSortedLists;
+package mergeKLists;
 
 import java.util.ArrayList;
 import java.util.Collections;
