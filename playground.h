@@ -1,26 +1,7 @@
-#include<iostream>
-#include<algorithm>
+#include <algorithm>
 #include <sstream>
-#include<vector>
-#include<unordered_map>
-
-
-
-using namespace std;
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> hashtable;
-        for (int i = 0; i < nums.size(); ++i) {
-            auto it = hashtable.find(target - nums[i]);
-            if (it != hashtable.end()) {
-                return {it->second, i};
-            }
-            hashtable[nums[i]] = i;
-        }
-        return {};
-    }
-};
+#include <vector>
+#include <unordered_map>
 
 void trimLeftTrailingSpaces(string &input) {
     input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
@@ -68,19 +49,4 @@ string integerVectorToString(vector<int> list, int length = -1) {
         result += to_string(number) + ", ";
     }
     return "[" + result.substr(0, result.length() - 2) + "]";
-}
-
-int main() {
-    string line;
-    while (getline(cin, line)) {
-        vector<int> nums = stringToIntegerVector(line);
-        getline(cin, line);
-        int target = stringToInteger(line);
-
-        vector<int> ret = Solution().twoSum(nums, target);
-
-        string out = integerVectorToString(ret);
-        cout << out << endl;
-    }
-    return 0;
 }
