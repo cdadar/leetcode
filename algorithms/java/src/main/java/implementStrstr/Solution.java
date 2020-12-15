@@ -13,17 +13,18 @@ public class Solution {
       return -1;
     }
 
-    int j = 0;
+    int j = 0, k = 0;
     while (j < haystack.length()) {
-      if (haystack.charAt(j) == needle.charAt(0)) {
-        int k = 0;
-        while (k < needle.length()) {
-          if (haystack.charAt(j) == needle.charAt(k)) {
-            k++;
-            j++;
-          }
+      if (haystack.charAt(j) == needle.charAt(k)) {
+        k++;
+      } else {
+        if (k > 0) {
+          j = j - k;
         }
-        return j - k;
+        k = 0;
+      }
+      if (k == needle.length()) {
+        return j - k + 1;
       }
       j++;
     }
