@@ -146,6 +146,5 @@ fabric.properties
 *.iml
 
 ltxpng/
-test
 TAGS
 playground
